@@ -1,0 +1,7 @@
+for FILE in *.conf
+do
+	X=${FILE%.conf}
+	FP=`readlink -f $FILE`
+	echo "Linking "$FP" -> /etc/apache2/sites-available/"$X
+	sudo ln --symbolic $FP /etc/apache2/sites-available/$X
+done
