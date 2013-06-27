@@ -85,10 +85,10 @@ $f3->route('GET /search/@term',
 			{
 				if(trim($type) != '')
 				{
-					$cleantypes[] = preg_replace("/(.*)[#\/](.*)/", "\$2", $type);
+					$cleantypes[] = "<span class='label label-success'>".preg_replace("/(.*)[#\/](.*)/", "\$2", $type)."</span>";
 				}
 			}
-			$types = implode(', ', $cleantypes);
+			$types = implode(' ', $cleantypes);
 			echo $types;
 
 			$graphs = $metadata[$uri]['graphs'];
