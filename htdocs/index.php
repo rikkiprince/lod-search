@@ -88,7 +88,20 @@ $f3->route('GET /search/@term',
 			$gnames = array();
 			foreach($graphs as $graph)
 			{
-				@$gnames[] = "<a href='".str_replace('/latest', '', $graph)."'>".$datasets[$graph]."</a>";
+				$datasetname = null;
+				$dataseturi = null;
+				if(isset($datasetnames[$graph]))
+				{
+					$datasetname = $datasetnames[$graph];
+				}
+				if(isset($dataseturis[$graph]))
+				{
+					$dataseturi = $dataseturis[$graph];
+				}
+				if($datasetname != null && $dataseturi != null)
+				{
+					@$gnames[] = "<a href='".$dataseturi."'><span class='label label-info'>".$datasetname."</span></a>";
+				}
 			}
 			echo implode(', ', $gnames);
 			echo "</small>";

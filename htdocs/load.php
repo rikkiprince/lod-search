@@ -26,22 +26,22 @@ SELECT * WHERE {
 ORDER BY ?uri");
 
 $data2 = sparql_get($endpoint, "
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT distinct * WHERE{
-
- ?dataset_uri rdf:type <http://www.w3.org/ns/dcat#Dataset> .
- ?dataset_uri dc:title ?dataset_name .
- ?dataset_uri rdfs:label ?dataset_label
-}");
+SELECT DISTINCT ?graph_uri ?dataset_uri ?label WHERE {
+  GRAPH ?graph_uri {
+    ?x ?y ?z .
+  }
+  ?dataset_uri rdf:type <http://www.w3.org/ns/dcat#Dataset> .
+  ?dataset_uri <http://rdfs.org/ns/void#dataDump> ?graph_uri .
+  ?dataset_uri rdfs:label ?label .
+} ORDER BY ?graph_uri");
 
 foreach($data2 as $row)
 {
-	@$datasets[$row['dataset_uri'].'/latest'] = $row['dataset_name'];
+	@$datasetnames[$row['graph_uri']] = $row['label'];
+	@$dataseturis[$row['graph_uri']] = $row['dataset_uri'];
 }
 
 $rankings = unserialize(file_get_contents('total.txt'));
