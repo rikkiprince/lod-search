@@ -31,6 +31,7 @@ foreach($graphs as $graph)
 		{
 			@$incoming[$row['o']]++;
 			@$total[$row['o']]++;
+			@$datasets[$row['o']][$graph] = true;
 		}
 	}
 	foreach($data as $row)
@@ -39,6 +40,7 @@ foreach($graphs as $graph)
 		{
 			@$outgoing[$row['s']]++;
 			@$total[$row['s']]++;
+			@$datasets[$row['s']][$graph] = true;
 		}
 	}
 	echo count($outgoing)." ".count($incoming)."\n";
@@ -47,5 +49,9 @@ echo "DONE";
 file_put_contents('../htdocs/incoming.txt', serialize($incoming));
 file_put_contents('../htdocs/outgoing.txt', serialize($outgoing));
 file_put_contents('../htdocs/total.txt', serialize($total));
+foreach($datasets as $uri => $datasetlist)
+{
+	$datasets[$uri] = array_keys($datasetlist);
 }
+file_put_contents('../htdocs/datasets.txt', serialize($datasets));
 ?>
