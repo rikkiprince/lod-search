@@ -45,16 +45,25 @@ foreach($data2 as $row)
 }
 
 $rankings = unserialize(file_get_contents('total.txt'));
-
 foreach($data as $row)
 {
 	@$founduris[$row['uri']] = $rankings[$row['uri']];
+}
+unset($rankings);
+
+$ds = unserialize(file_get_contents('datasets.txt'));
+foreach($data as $row)
+{
+	@$metadata[$row['uri']]['graphs'] = $ds[$row['uri']];
+}
+unset($ds);
+
+foreach($data as $row)
+{
 	@$metadata[$row['uri']]['types'][] = $row['t'];
-	@$metadata[$row['uri']]['graphs'][] = $row['g'];
 	@$metadata[$row['uri']]['labels'][] = $row['label'];
 }
 
-unset($rankings);
 
 arsort($founduris);
 //print_r($founduris);
