@@ -91,7 +91,16 @@ $f3->route('GET /search/@term',
 			$types = implode(', ', $cleantypes);
 			echo $types;
 
-			$graphs = array_unique($metadata[$uri]['graphs']);
+			$graphs = $metadata[$uri]['graphs'];
+			if($graphs == null)
+			{
+				$graphs = array();
+			}
+			else
+			{
+				$graphs = array_unique($metadata[$uri]['graphs']);
+			}
+			sort($graphs);
 			$gnames = array();
 			foreach($graphs as $graph)
 			{
