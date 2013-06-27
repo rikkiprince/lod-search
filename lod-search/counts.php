@@ -44,8 +44,8 @@ foreach($graphs as $graph)
 	echo count($outgoing)." ".count($incoming)."\n";
 }
 echo "DONE";
-file_put_contents('incoming.txt', serialize($incoming));
-file_put_contents('outgoing.txt', serialize($outgoing));
-file_put_contents('total.txt', serialize($total));
+file_put_contents('../htdocs/incoming.txt', serialize($incoming));
+file_put_contents('../htdocs/outgoing.txt', serialize($outgoing));
+file_put_contents('../htdocs/total.txt', serialize($total));
 }
 ?>
