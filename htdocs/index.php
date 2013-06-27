@@ -93,9 +93,7 @@ $f3->route('GET /search/@term',
 			echo implode(', ', $gnames);
 			echo "</small>";
 			echo "</li>";
-			//break;
 		}
-		echo "END";
 
 		echo Template::instance()->render('footer.html');
 
