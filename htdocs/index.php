@@ -91,7 +91,6 @@ $f3->route('GET /search/@term',
 			$types = implode(', ', $cleantypes);
 			echo $types;
 
-			echo " <small> in dataset ";
 			$graphs = array_unique($metadata[$uri]['graphs']);
 			$gnames = array();
 			foreach($graphs as $graph)
@@ -111,8 +110,22 @@ $f3->route('GET /search/@term',
 					@$gnames[] = "<a href='".$dataseturi."'><span class='label label-info'>".$datasetname."</span></a>";
 				}
 			}
-			echo implode(', ', $gnames);
-			echo "</small>";
+			if(count($gnames) == 0)
+			{
+				
+			}
+			else if(count($gnames) == 1)
+			{
+				echo " <small> in dataset: ";
+				echo implode(' ', $gnames);
+				echo "</small>";
+			}
+			else
+			{
+				echo " <small> in datasets: ";
+				echo implode(' ', $gnames);
+				echo "</small>";
+			}
 			echo "</li>";
 		}
 
