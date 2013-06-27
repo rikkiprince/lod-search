@@ -67,9 +67,17 @@ $f3->route('GET /search/@term',
 		{
 			$labels = array_unique($metadata[$uri]['labels']);
 			sort($labels);
-			$labels = implode(', ', $labels);
 			echo "<li>";
-			echo "<a href='$uri'>$labels</a> ";
+			$labellinks = array();
+			foreach($labels as $label)
+			{
+				if(strlen($label) > 100)
+				{
+					$label = trim(preg_replace('/ [^ ]$/', '', substr($label, 0, 100))).'...';
+				}
+				$labellinks[] = "<a href='$uri'>$label</a>";
+			}
+			echo implode(', ', $labellinks).' ';
 			$types = array_unique($metadata[$uri]['types']);
 			sort($types);
 			$cleantypes = array();
